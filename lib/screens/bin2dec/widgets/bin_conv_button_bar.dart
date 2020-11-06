@@ -18,7 +18,9 @@ class BinButtonBar extends StatelessWidget {
           color: Colors.redAccent,
           elevation: 5,
           onPressed: () {
-            if (controller == '') {}
+            if (controller == '') {
+              return;
+            }
 
             if (controller.text != "") {
               controller.text =
