@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mychallange/screens/bin2dec/bin_to_dec.dart';
+import 'package:mychallange/screens/border_radius_preview/border_rad_prev.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -28,15 +29,31 @@ class MyApp extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(10),
               child: RaisedButton(
-                color: Colors.deepPurple,
+                color: Colors.indigo,
                 elevation: 10,
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => BinToDec()));
                 },
-                onLongPress: () {},
                 child: Text(
-                  'Bin2Dec',
+                  'BinaryToDec',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(10),
+              child: RaisedButton(
+                color: Colors.indigo,
+                elevation: 10,
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => BorderRadPreview()));
+                },
+                child: Text(
+                  'borderRadiusPreview',
                   style: TextStyle(color: Colors.white),
                 ),
               ),
