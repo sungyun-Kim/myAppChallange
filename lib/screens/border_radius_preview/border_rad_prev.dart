@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_xlider/flutter_xlider.dart';
 
 double _lSliderValue = 0;
 double _tSliderValue = 0;
@@ -16,6 +15,7 @@ class _BorderRadPreviewState extends State<BorderRadPreview> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'BorderRadPreview',
       home: Scaffold(
         appBar: AppBar(
