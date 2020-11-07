@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mychallange/screens/bin2dec/bin_to_dec.dart';
 import 'package:mychallange/screens/border_radius_preview/border_rad_prev.dart';
 import 'package:mychallange/screens/calculator/calculator.dart';
@@ -15,6 +16,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'myChallange',

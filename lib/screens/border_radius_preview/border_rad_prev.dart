@@ -5,6 +5,7 @@ double _tSliderValue = 0;
 double _rSliderValue = 0;
 double _bSliderValue = 0;
 String txt = "hi";
+String middleTxt = "I am Box";
 
 class BorderRadPreview extends StatefulWidget {
   @override
@@ -43,6 +44,8 @@ class _BorderRadPreviewState extends State<BorderRadPreview> {
                       setState(
                         () {
                           _tSliderValue = value;
+                          middleTxt =
+                              "Lt: $_tSliderValue\nRt: $_rSliderValue\nLb: $_bSliderValue\nRb: $_lSliderValue";
                         },
                       );
                     },
@@ -56,6 +59,8 @@ class _BorderRadPreviewState extends State<BorderRadPreview> {
                     onChanged: (value) {
                       setState(() {
                         _rSliderValue = value;
+                        middleTxt =
+                            "Lt: $_tSliderValue\nRt: $_rSliderValue\nLb: $_bSliderValue\nRb: $_lSliderValue";
                       });
                     },
                   ),
@@ -65,7 +70,7 @@ class _BorderRadPreviewState extends State<BorderRadPreview> {
                 alignment: Alignment.center,
                 width: MediaQuery.of(context).size.width * 0.5,
                 height: MediaQuery.of(context).size.width * 0.5,
-                child: Text('I am Box'),
+                child: Text(middleTxt),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(_lSliderValue),
@@ -93,6 +98,8 @@ class _BorderRadPreviewState extends State<BorderRadPreview> {
                     onChanged: (value) {
                       setState(() {
                         _bSliderValue = value;
+                        middleTxt =
+                            "Lt: $_tSliderValue\nRt: $_rSliderValue\nLb: $_bSliderValue\nRb: $_lSliderValue";
                       });
                     },
                   ),
@@ -105,6 +112,8 @@ class _BorderRadPreviewState extends State<BorderRadPreview> {
                     onChanged: (value) {
                       setState(() {
                         _lSliderValue = value;
+                        middleTxt =
+                            "Lt: $_tSliderValue\nRt: $_rSliderValue\nLb: $_bSliderValue\nRb: $_lSliderValue";
                       });
                     },
                   ),
