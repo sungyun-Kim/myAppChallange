@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:mychallange/screens/bin2dec/bin_to_dec.dart';
 import 'package:mychallange/screens/border_radius_preview/border_rad_prev.dart';
 import 'package:mychallange/screens/calculator/calculator.dart';
+import 'package:mychallange/screens/random_meal_gen/random_meal.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -81,6 +82,21 @@ class MyApp extends StatelessWidget {
                 },
                 child: Text(
                   'Calculator',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(10),
+              child: RaisedButton(
+                color: Colors.indigo,
+                elevation: 10,
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => RandomMealGen()));
+                },
+                child: Text(
+                  'RandomMealGenerator',
                   style: TextStyle(color: Colors.white),
                 ),
               ),
