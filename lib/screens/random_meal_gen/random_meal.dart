@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mychallange/screens/random_meal_gen/meal_list.dart';
@@ -12,23 +10,13 @@ Future<Meal> fetchMeal() async {
 
   if (response.statusCode == 200) {
     // 만약 서버로의 요청이 성공하면, JSON을 파싱합니다.
+    print(response.body);
 
-    print(Meal.fromJson(json.decode(response.body)));
+    print(Meal.fromJson(json.decode(response.body)).strMeal);
     return Meal.fromJson(json.decode(response.body));
   } else {
     // 만약 요청이 실패하면, 에러를 던집니다.
     throw Exception('Failed to load post');
-  }
-}
-
-Future<List<Meal>> fetchMeals(http.Client client) async {
-  final response =
-      await http.get('https://www.themealdb.com/api/json/v1/1/random.php');
-
-  if (response.statusCode == 200) {
-    return parseMeals(response.body);
-  } else {
-    print('err!!!');
   }
 }
 
@@ -59,12 +47,12 @@ class RandomMealGen extends StatelessWidget {
         ),
         body: Container(
           child: FutureBuilder(
-            future: fetchMeals(http.Client()),
+            future: fetchMeal(),
             builder: (context, snapshot) {
               if (snapshot.hasError) print("err");
 
               return snapshot.hasData
-                  ? MealList(meals: snapshot.data)
+                  ? Text(snapshot.data.toString())
                   : Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
