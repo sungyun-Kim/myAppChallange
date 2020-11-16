@@ -6,12 +6,12 @@ class Meal {
 
   Meal({this.strMeal, this.strCategory, this.strInstructions, this.strYoutube});
 
-  factory Meal.fromJson(Map<String, dynamic> json) {
+  factory Meal.fromJson(Map<String, dynamic> parsedJson) {
     return Meal(
-      strMeal: json['strMeal'] as String,
-      strCategory: json['strCategory'] as String,
-      strInstructions: json['strInstructions'] as String,
-      strYoutube: json['strYoutube'] as String,
+      strMeal: parsedJson['strMeal'],
+      strCategory: parsedJson['strCategory'],
+      strInstructions: parsedJson['strInstructions'],
+      strYoutube: parsedJson['strYoutube'],
     );
   }
 }

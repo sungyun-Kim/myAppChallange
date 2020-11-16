@@ -3,27 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mychallange/screens/random_meal_gen/meal_list.dart';
 import 'package:mychallange/screens/random_meal_gen/models/meal.dart';
+import 'package:mychallange/screens/random_meal_gen/models/meals.dart';
 
-Future<Meal> fetchMeal() async {
+Future<List<Meal>> fetchPost() async {
   final response =
       await http.get('https://www.themealdb.com/api/json/v1/1/random.php');
 
   if (response.statusCode == 200) {
     // 만약 서버로의 요청이 성공하면, JSON을 파싱합니다.
-    print(response.body);
 
-    print(Meal.fromJson(json.decode(response.body)).strMeal);
-    return Meal.fromJson(json.decode(response.body));
+    final parsed = response.body;
+
+    var mealJson = jsonDecode(parsed)['meals'] as List;
+    List resultMeal = mealJson.map((mealJs) => Meal.fromJson(mealJs)).toList();
+    return resultMeal;
   } else {
     // 만약 요청이 실패하면, 에러를 던집니다.
     throw Exception('Failed to load post');
   }
-}
-
-List<Meal> parseMeals(String responseBody) {
-  final parsed = jsonDecode(responseBody);
-
-  return parsed.map<Meal>((json) => Meal.fromJson(json)).toList();
 }
 
 class RandomMealGen extends StatelessWidget {
@@ -47,21 +44,22 @@ class RandomMealGen extends StatelessWidget {
         ),
         body: Container(
           child: FutureBuilder(
-            future: fetchMeal(),
+            future: fetchPost(),
             builder: (context, snapshot) {
-              if (snapshot.hasError) print("err");
+              if (snapshot.hasError) print("err: " + snapshot.error.toString());
 
-              return snapshot.hasData
-                  ? Text(snapshot.data.toString())
-                  : Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text('Loading'),
-                          CircularProgressIndicator(),
-                        ],
-                      ),
-                    );
+              if (snapshot.hasData) {
+                return Text(snapshot.data[0].strCategory);
+              } else {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      CircularProgressIndicator(),
+                    ],
+                  ),
+                );
+              }
             },
           ),
         ),
