@@ -49,6 +49,10 @@ class RandomMealGen extends StatelessWidget {
               if (snapshot.hasError) print("err: " + snapshot.error.toString());
 
               if (snapshot.hasData) {
+                //to-do
+                //add image by url
+                //add ingredients
+
                 return Text(snapshot.data[0].strCategory);
               } else {
                 return Center(
