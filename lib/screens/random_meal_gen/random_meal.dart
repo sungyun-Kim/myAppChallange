@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:mychallange/screens/random_meal_gen/meal_list.dart';
 import 'package:mychallange/screens/random_meal_gen/models/meal.dart';
-import 'package:mychallange/screens/random_meal_gen/models/meals.dart';
 
 Future<List<Meal>> fetchPost() async {
   final response =
@@ -52,8 +50,55 @@ class RandomMealGen extends StatelessWidget {
                 //to-do
                 //add image by url
                 //add ingredients
+                //add instructions
+                //add recipe
 
-                return Text(snapshot.data[0].strCategory);
+                Meal meal = snapshot.data[0];
+
+                return Container(
+                  padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                  child: Row(
+                    children: <Widget>[
+                      Column(
+                        children: <Widget>[
+                          //photo
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.4,
+                            width: MediaQuery.of(context).size.width * 0.4,
+                            padding: EdgeInsets.all(5),
+                            child: Image.network(meal.strMealThumb),
+                          ),
+                          //category
+                          Container(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text("Category: " + meal.strCategory),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.fromLTRB(10, 70, 20, 20),
+                            child: Expanded(
+                              child: Text(
+                                meal.strMeal,
+                                overflow: TextOverflow.clip,
+                                style: TextStyle(
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
               } else {
                 return Center(
                   child: Column(
