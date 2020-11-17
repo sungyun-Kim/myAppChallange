@@ -63,10 +63,16 @@ class RandomMealGen extends StatelessWidget {
                         children: <Widget>[
                           //photo
                           Container(
-                            height: MediaQuery.of(context).size.height * 0.4,
-                            width: MediaQuery.of(context).size.width * 0.4,
+                            height: MediaQuery.of(context).size.height * 0.3,
+                            width: MediaQuery.of(context).size.width * 0.3,
                             padding: EdgeInsets.all(5),
-                            child: Image.network(meal.strMealThumb),
+                            child: Card(
+                              child: Image.network(
+                                meal.strMealThumb,
+                                fit: BoxFit.contain,
+                              ),
+                              elevation: 5,
+                            ),
                           ),
                           //category
                           Container(
