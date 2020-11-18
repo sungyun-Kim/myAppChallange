@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:expressions/expressions.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mychallange/screens/random_meal_gen/models/meal.dart';
@@ -31,6 +32,11 @@ class RandomMealGen extends StatelessWidget {
         appBar: AppBar(
           actions: <Widget>[
             new IconButton(
+              icon: Icon(Icons.refresh),
+              tooltip: 'refresh',
+              onPressed: () {},
+            ),
+            new IconButton(
               icon: Icon(Icons.arrow_back),
               tooltip: 'back',
               onPressed: () {
@@ -56,51 +62,89 @@ class RandomMealGen extends StatelessWidget {
                 Meal meal = snapshot.data[0];
 
                 return Container(
-                  padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                  child: Row(
+                  padding: EdgeInsets.all(20),
+                  child: ListView(
                     children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          //photo
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.3,
-                            width: MediaQuery.of(context).size.width * 0.3,
-                            padding: EdgeInsets.all(5),
-                            child: Card(
-                              child: Image.network(
-                                meal.strMealThumb,
-                                fit: BoxFit.contain,
-                              ),
-                              elevation: 5,
-                            ),
-                          ),
-                          //category
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                      Card(
+                        elevation: 4,
+                        child: Row(
+                          children: <Widget>[
+                            Column(
                               children: <Widget>[
-                                Text("Category: " + meal.strCategory),
+                                //photo
+                                Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.3,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.3,
+                                  padding: EdgeInsets.all(5),
+                                  child: Card(
+                                    child: Image.network(
+                                      meal.strMealThumb,
+                                      fit: BoxFit.cover,
+                                    ),
+                                    elevation: 5,
+                                  ),
+                                ),
+                                //category
+                                Container(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[],
+                                  ),
+                                )
                               ],
                             ),
-                          )
-                        ],
-                      ),
-                      Column(
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.fromLTRB(10, 70, 20, 20),
-                            child: Expanded(
-                              child: Text(
-                                meal.strMeal,
-                                overflow: TextOverflow.clip,
-                                style: TextStyle(
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            Flexible(
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    padding:
+                                        EdgeInsets.fromLTRB(10, 30, 20, 20),
+                                    child: Column(
+                                      children: <Widget>[
+                                        Container(
+                                          padding:
+                                              EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                          child: Text(
+                                            meal.strMeal,
+                                            softWrap: true,
+                                            textAlign: TextAlign.start,
+                                            style: TextStyle(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          alignment: Alignment.centerLeft,
+                                          padding:
+                                              EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                          child: Text(
+                                            "Category: " + meal.strCategory,
+                                            softWrap: true,
+                                            textAlign: TextAlign.start,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ),
-                        ],
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          meal.strInstructions,
+                          style: TextStyle(fontSize: 16),
+                        ),
                       ),
                     ],
                   ),
@@ -120,5 +164,9 @@ class RandomMealGen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  List<Widget> makeRecipe(BuildContext context, Meal meal) {
+    List<Widget> recipe = [];
   }
 }
