@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:expressions/expressions.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mychallange/screens/random_meal_gen/models/meal.dart';
@@ -22,7 +21,12 @@ Future<List<Meal>> fetchPost() async {
   }
 }
 
-class RandomMealGen extends StatelessWidget {
+class RandomMealGen extends StatefulWidget {
+  @override
+  _RandomMealGenState createState() => _RandomMealGenState();
+}
+
+class _RandomMealGenState extends State<RandomMealGen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -34,7 +38,11 @@ class RandomMealGen extends StatelessWidget {
             new IconButton(
               icon: Icon(Icons.refresh),
               tooltip: 'refresh',
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  fetchPost();
+                });
+              },
             ),
             new IconButton(
               icon: Icon(Icons.arrow_back),
@@ -60,6 +68,12 @@ class RandomMealGen extends StatelessWidget {
                 //add recipe
 
                 Meal meal = snapshot.data[0];
+
+                List<String> recipe = [];
+
+                recipe.add(meal.strIngredient1 + ": " + meal.strMeasure1);
+                recipe.add(meal.strIngredient2 + ": " + meal.strMeasure2);
+                recipe.add(meal.strIngredient3 + ": " + meal.strMeasure3);
 
                 return Container(
                   padding: EdgeInsets.all(20),
@@ -141,11 +155,33 @@ class RandomMealGen extends StatelessWidget {
                       ),
                       Container(
                         padding: EdgeInsets.all(10),
-                        child: Text(
-                          meal.strInstructions,
-                          style: TextStyle(fontSize: 16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: getRecipe(context, recipe),
                         ),
                       ),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                              child: Text(
+                                'Instructions',
+                                style: TextStyle(fontSize: 24),
+                              ),
+                            ),
+                            Text(
+                              meal.strInstructions,
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                      )
                     ],
                   ),
                 );
@@ -165,8 +201,28 @@ class RandomMealGen extends StatelessWidget {
       ),
     );
   }
+}
 
-  List<Widget> makeRecipe(BuildContext context, Meal meal) {
-    List<Widget> recipe = [];
+List<Widget> getRecipe(BuildContext context, List<String> recipe) {
+  List<Widget> result = [];
+
+  result.add(
+    Container(
+      padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+      child: Text(
+        'Ingredients & Measurement',
+        style: TextStyle(fontSize: 24),
+      ),
+    ),
+  );
+
+  for (var i = 0; i < recipe.length; i++) {
+    result.add(
+      Text(
+        recipe[i],
+      ),
+    );
   }
+
+  return result;
 }
