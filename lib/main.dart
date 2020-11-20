@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:mychallange/screens/bin2dec/bin_to_dec.dart';
 import 'package:mychallange/screens/border_radius_preview/border_rad_prev.dart';
 import 'package:mychallange/screens/calculator/calculator.dart';
+import 'package:mychallange/screens/card_memory_game/card_memory_game.dart';
 import 'package:mychallange/screens/random_meal_gen/random_meal.dart';
 
 void main() {
@@ -100,7 +101,31 @@ class MyApp extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-            )
+            ),
+            Container(
+              padding: EdgeInsets.fromLTRB(20, 20, 0, 5),
+              child: Text(
+                'Tier-2: Intermediate',
+                style: TextStyle(color: Colors.teal, fontSize: 16),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(10),
+              child: RaisedButton(
+                color: Colors.teal,
+                elevation: 10,
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CardMemoryGame()));
+                },
+                child: Text(
+                  'Card-Memory-Game',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
           ],
         ),
       ),
