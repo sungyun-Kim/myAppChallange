@@ -39,9 +39,8 @@ class _RandomMealGenState extends State<RandomMealGen> {
               icon: Icon(Icons.refresh),
               tooltip: 'refresh',
               onPressed: () {
-                setState(() {
-                  fetchPost();
-                });
+                //개선 필요
+                setState(() {});
               },
             ),
             new IconButton(
@@ -71,6 +70,7 @@ class _RandomMealGenState extends State<RandomMealGen> {
 
                 List<String> recipe = [];
 
+                //개선 필요
                 recipe.add(meal.strIngredient1 + ": " + meal.strMeasure1);
                 recipe.add(meal.strIngredient2 + ": " + meal.strMeasure2);
                 recipe.add(meal.strIngredient3 + ": " + meal.strMeasure3);
@@ -80,7 +80,10 @@ class _RandomMealGenState extends State<RandomMealGen> {
                   child: ListView(
                     children: <Widget>[
                       Card(
-                        elevation: 4,
+                        clipBehavior: Clip.none,
+                        margin: EdgeInsets.all(10),
+                        borderOnForeground: true,
+                        elevation: 5,
                         child: Row(
                           children: <Widget>[
                             Column(
@@ -140,6 +143,7 @@ class _RandomMealGenState extends State<RandomMealGen> {
                                             softWrap: true,
                                             textAlign: TextAlign.start,
                                             style: TextStyle(
+                                              fontWeight: FontWeight.w300,
                                               fontSize: 16,
                                             ),
                                           ),
@@ -169,12 +173,17 @@ class _RandomMealGenState extends State<RandomMealGen> {
                               padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
                               child: Text(
                                 'Instructions',
-                                style: TextStyle(fontSize: 24),
+                                style: TextStyle(
+                                  fontSize: 24,
+                                ),
                               ),
                             ),
                             Text(
                               meal.strInstructions,
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w300,
+                                fontSize: 16,
+                              ),
                             ),
                           ],
                         ),
@@ -220,6 +229,10 @@ List<Widget> getRecipe(BuildContext context, List<String> recipe) {
     result.add(
       Text(
         recipe[i],
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w300,
+        ),
       ),
     );
   }
