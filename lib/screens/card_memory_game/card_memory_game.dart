@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mychallange/screens/card_memory_game/widget/card.dart';
 
 // User can see a grid with n x n cards (n is an integer). All the cards are faced down initially (hidden state)
 
@@ -34,9 +35,26 @@ class _CardMemoryGameState extends State<CardMemoryGame> {
           ],
         ),
         body: Container(
-          child: Text('i am text'),
+          width: MediaQuery.of(context).size.width,
+          child: GridView.count(
+            padding: EdgeInsets.all(20),
+            crossAxisCount: 4,
+            children: createCards(),
+          ),
         ),
       ),
     );
   }
+}
+
+List<Widget> createCards() {
+  List<Widget> result = [];
+
+  for (var i = 0; i < 16; i++) {
+    result.add(Container(
+      padding: EdgeInsets.all(1),
+      child: FlipCard(),
+    ));
+  }
+  return result;
 }
