@@ -51,10 +51,12 @@ List<Widget> createCards() {
   List<Widget> result = [];
 
   for (var i = 0; i < 16; i++) {
-    result.add(Container(
-      padding: EdgeInsets.all(1),
-      child: FlipCard(),
-    ));
+    result.add(
+      Container(
+        padding: EdgeInsets.all(1),
+        child: MyCard(),
+      ),
+    );
   }
   return result;
 }

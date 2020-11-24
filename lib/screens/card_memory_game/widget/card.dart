@@ -1,18 +1,29 @@
+import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 
-class FlipCard extends StatefulWidget {
+class MyCard extends StatefulWidget {
   @override
-  _FlipCardState createState() => _FlipCardState();
+  _MyCardState createState() => _MyCardState();
 }
 
-class _FlipCardState extends State<FlipCard> {
+class _MyCardState extends State<MyCard> {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 3,
-      child: Container(
-        alignment: Alignment.center,
-        child: Text('i am card'),
+    return FlipCard(
+      onFlip: () {
+        print('i am flipped');
+      },
+      front: Card(
+        child: Container(
+          alignment: Alignment.center,
+          color: Colors.greenAccent,
+        ),
+      ),
+      back: Card(
+        child: Container(
+          alignment: Alignment.center,
+          child: Text('hi'),
+        ),
       ),
     );
   }
