@@ -1,5 +1,5 @@
+import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
-import 'package:mychallange/screens/card_memory_game/widget/card.dart';
 
 // User can see a grid with n x n cards (n is an integer). All the cards are faced down initially (hidden state)
 
@@ -14,6 +14,9 @@ import 'package:mychallange/screens/card_memory_game/widget/card.dart';
 // If there isn't a match, the 2 cards will flip back to their original state (hidden state)
 // When all the matches have been found, the User can see a dialog box showing
 // a Congratulations message with a counter displaying the time it took to finish the game
+
+List<String> currentStateList = [];
+List<GlobalKey<FlipCardState>> cardKeyList = [];
 
 class CardMemoryGame extends StatefulWidget {
   @override
@@ -50,11 +53,58 @@ class _CardMemoryGameState extends State<CardMemoryGame> {
 List<Widget> createCards() {
   List<Widget> result = [];
 
+  List<String> list = [
+    'O',
+    'O',
+    'X',
+    'X',
+    '★',
+    '★',
+    '＆',
+    '＆',
+    '#',
+    '#',
+    '◇',
+    '◇',
+    '♠',
+    '♠',
+    '♣',
+    '♣'
+  ];
+
+  list.shuffle();
+
   for (var i = 0; i < 16; i++) {
+    GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
+
+    cardKeyList.add(cardKey);
+
     result.add(
       Container(
         padding: EdgeInsets.all(1),
-        child: MyCard(),
+        child: FlipCard(
+          key: cardKeyList[i],
+          direction: FlipDirection.HORIZONTAL,
+          onFlip: () {
+            if (currentStateList.length < 2) {
+              currentStateList.add(list[i]);
+              print(currentStateList);
+              print(i);
+            } else {}
+          },
+          front: Card(
+            child: Container(alignment: Alignment.center, color: Colors.pink),
+          ),
+          back: Card(
+            child: Container(
+              alignment: Alignment.center,
+              child: Text(
+                list[i],
+                style: TextStyle(fontSize: 24),
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
