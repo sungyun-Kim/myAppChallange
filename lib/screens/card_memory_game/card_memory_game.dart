@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +19,7 @@ import 'package:flutter/material.dart';
 // a Congratulations message with a counter displaying the time it took to finish the game
 
 List<String> currentStateList = [];
+List<int> currentStateIndexList = [];
 List<GlobalKey<FlipCardState>> cardKeyList = [];
 
 class CardMemoryGame extends StatefulWidget {
@@ -84,20 +88,53 @@ List<Widget> createCards() {
         padding: EdgeInsets.all(1),
         child: FlipCard(
           key: cardKeyList[i],
+          flipOnTouch: false,
           direction: FlipDirection.HORIZONTAL,
-          onFlip: () {
-            if (currentStateList.length < 2) {
-              currentStateList.add(list[i]);
-              print(currentStateList);
-              print(i);
-            } else {}
-          },
-          front: Card(
-            child: Container(alignment: Alignment.center, color: Colors.pink),
+          onFlip: () {},
+          front: Container(
+            alignment: Alignment.center,
+            color: Colors.pink,
+            child: InkWell(
+              onTap: () {
+                if (currentStateList.length < 1) {
+                  currentStateList.add(list[i]);
+                  currentStateIndexList.add(i);
+                  cardKeyList[i].currentState.toggleCard();
+                }
+                //2개가 선택됨
+                else {
+                  currentStateList.add(list[i]);
+                  currentStateIndexList.add(i);
+                  cardKeyList[i].currentState.toggleCard();
+                  //둘이 일치함
+                  if (currentStateList[0] == currentStateList[1]) {
+                    currentStateIndexList.clear();
+                    currentStateList.clear();
+                  }
+                  //둘이 일치 안함
+                  else {
+                    Timer.periodic(Duration(milliseconds: 500), (timer) {
+                      cardKeyList[currentStateIndexList[0]]
+                          .currentState
+                          .toggleCard();
+                      cardKeyList[currentStateIndexList[1]]
+                          .currentState
+                          .toggleCard();
+
+                      currentStateIndexList.clear();
+                      currentStateList.clear();
+
+                      timer.cancel();
+                    });
+                  }
+                }
+              },
+            ),
           ),
-          back: Card(
-            child: Container(
-              alignment: Alignment.center,
+          back: Container(
+            alignment: Alignment.center,
+            child: Card(
+              elevation: 0,
               child: Text(
                 list[i],
                 style: TextStyle(fontSize: 24),
