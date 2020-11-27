@@ -73,7 +73,7 @@ List<Widget> createCards() {
     '♠',
     '♠',
     '♣',
-    '♣'
+    '♣',
   ];
 
   list.shuffle();
@@ -113,7 +113,7 @@ List<Widget> createCards() {
                   }
                   //둘이 일치 안함
                   else {
-                    Timer.periodic(Duration(milliseconds: 500), (timer) {
+                    Timer.periodic(Duration(milliseconds: 450), (timer) {
                       cardKeyList[currentStateIndexList[0]]
                           .currentState
                           .toggleCard();
