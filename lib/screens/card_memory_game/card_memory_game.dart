@@ -13,9 +13,16 @@ import 'package:flutter/material.dart';
 
 // When the User clicks on the 2nd card:
 
+//  leave them in the visible state
 // If there is a match, the 2 cards will be eliminated from the game (either hide/remove them or leave them in the visible state)
+
+//  개선 필요
 // If there isn't a match, the 2 cards will flip back to their original state (hidden state)
+
+//  dialog box add
 // When all the matches have been found, the User can see a dialog box showing
+
+//  add message
 // a Congratulations message with a counter displaying the time it took to finish the game
 
 List<String> currentStateList = [];
@@ -113,19 +120,22 @@ List<Widget> createCards() {
                   }
                   //둘이 일치 안함
                   else {
-                    Timer.periodic(Duration(milliseconds: 450), (timer) {
-                      cardKeyList[currentStateIndexList[0]]
-                          .currentState
-                          .toggleCard();
-                      cardKeyList[currentStateIndexList[1]]
-                          .currentState
-                          .toggleCard();
+                    Timer.periodic(
+                      Duration(milliseconds: 450),
+                      (timer) {
+                        cardKeyList[currentStateIndexList[0]]
+                            .currentState
+                            .toggleCard();
+                        cardKeyList[currentStateIndexList[1]]
+                            .currentState
+                            .toggleCard();
 
-                      currentStateIndexList.clear();
-                      currentStateList.clear();
+                        currentStateIndexList.clear();
+                        currentStateList.clear();
 
-                      timer.cancel();
-                    });
+                        timer.cancel();
+                      },
+                    );
                   }
                 }
               },
